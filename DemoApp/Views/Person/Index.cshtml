@@ -1,0 +1,20 @@
+﻿@model PersonViewModel
+@{
+    ViewData["Title"] = "Person";
+}
+
+<form method="post" action="">
+    <table>
+        <tr>
+            <td>Name: </td>
+            <td>@Html.TextBoxFor(m => m.Name)</td>
+            @*<td><input asp-for="Name" /></td>*@
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td>@Html.TextBoxFor(m => m.Age)</td>
+        </tr>
+    </table>
+
+    <input id="submit" type="submit" />
+</form>

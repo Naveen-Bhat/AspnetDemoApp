@@ -12,7 +12,26 @@ namespace DemoApp.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new HowToViewModel();
+
+            var elm1 = new HowToElementViewModel();
+            elm1.Link = "https://go.microsoft.com/fwlink/?LinkID=398600";
+            elm1.Text = "Add a Controller and View";
+            viewModel.HowToElements.Add(elm1);
+
+            viewModel.HowToElements.Add(new HowToElementViewModel()
+            {
+                Link = "https://go.microsoft.com/fwlink/?LinkID=699315",
+                Text = "Manage User Secrets using Secret Manager"
+            });
+
+            viewModel.HowToElements.Add(new HowToElementViewModel()
+            {
+                Link = "https://go.microsoft.com/fwlink/?LinkID=699316",
+                Text = "Use logging to log a message"
+            });
+
+            return View(viewModel);
         }
 
         public IActionResult About()
