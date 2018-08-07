@@ -3,18 +3,59 @@
     ViewData["Title"] = "Person";
 }
 
-<form method="post" action="">
+<h3 id="result"></h3>
+<form id="personForm" method="post" action="">
     <table>
         <tr>
             <td>Name: </td>
-            <td>@Html.TextBoxFor(m => m.Name)</td>
+            <td>
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </td>
+
             @*<td><input asp-for="Name" /></td>*@
         </tr>
         <tr>
-            <td>Age:</td>
-            <td>@Html.TextBoxFor(m => m.Age)</td>
+            <td>@Html.LabelFor(m => m.Age):</td>
+            <td>
+                @Html.TextBoxFor(m => m.Age)
+                @Html.ValidationMessageFor(m => m.Age)
+            </td>
         </tr>
     </table>
 
-    <input id="submit" type="submit" />
+    <input id="submit" type="button" value="Submit" />
 </form>
+
+@section Scripts{
+    @Html.Partial("_ValidationScriptsPartial")
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#submit").on("click", e => {
+
+                var url = "@Url.Action("SavePerson", "Person")";
+
+                $.ajax({
+                    url: url,
+                    data: $("#personForm").serializeArray(),
+                    dataType: "json",
+                    method: "POST",
+                    sucess: function (result) {
+                        if (result.data) {
+                            $("#result").text(result.data);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+            });
+
+        });
+
+    </script>
+}

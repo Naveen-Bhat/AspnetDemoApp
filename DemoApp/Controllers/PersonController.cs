@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DemoApp.Models;
@@ -14,10 +15,28 @@ namespace DemoApp.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public IActionResult Index(PersonViewModel viewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        return View("Success");
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        //public IActionResult Success()
+        //{
+        //    return View();
+        //}
+
         [HttpPost]
-        public IActionResult Index(PersonViewModel viewModel)
+        public JsonResult SavePerson(PersonViewModel viewModel)
         {
-            return View();
+            return Json(new { data = "Saved successfully!" });
         }
     }
 }
