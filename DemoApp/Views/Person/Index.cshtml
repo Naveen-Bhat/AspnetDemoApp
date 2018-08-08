@@ -25,7 +25,14 @@
     </table>
 
     <input id="submit" type="button" value="Submit" />
+    <input id="getData" type="button" value="Get Data" />
+
 </form>
+
+<div>
+    <input type="text" id="pattern" />
+    <input type="button" value="Searh" id="search" />
+</div>
 
 @section Scripts{
     @Html.Partial("_ValidationScriptsPartial")
@@ -43,9 +50,10 @@
                     data: $("#personForm").serializeArray(),
                     dataType: "json",
                     method: "POST",
-                    sucess: function (result) {
+                    success: function (result) {
                         if (result.data) {
                             $("#result").text(result.data);
+                            $("#personForm input[type='text']").val("");
                         }
                     },
                     error: function (error) {
@@ -53,8 +61,32 @@
                     }
                 });
 
+                //$.post(url, $("#personForm").serializeArray(), function (result) {
+                //    $("#result").text(result.data);
+                //    $("#personForm input[type='text']").val("");
+                //}, "json");
+
+
             });
 
+
+            $("#getData").on("click", function () {
+                var url = "@Url.Action("GetPeople", "Person")";
+                $.get(url, null, function (result) {
+                    console.log(result);
+                });
+            });
+
+            $("#search").on("click", function () {
+                var url = "@Url.Action("Search", "Person")" + "?pattern=" + $("#pattern").val();
+                //$.get(url, { pattern: $("#pattern").val() }, function (result) {
+                //    console.log(result);
+                //});
+
+                $.get(url, function (result) {
+                    console.log(result);
+                });
+            });
         });
 
     </script>
