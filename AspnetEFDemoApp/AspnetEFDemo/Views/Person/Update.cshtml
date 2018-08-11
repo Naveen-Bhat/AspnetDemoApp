@@ -1,0 +1,16 @@
+﻿@model AspnetEFDemo.Repository.Person
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update</h2>
+
+
+<form action="@Url.Action("UpdatePerson", "Person")" method="post">
+    @Html.HiddenFor(x => x.Id)
+    Name: @Html.EditorFor(x => x.Name)
+    <input type="submit" />
+</form>
+
+
+<a href="@Url.Action("Index", "Person")">Cancel</a>

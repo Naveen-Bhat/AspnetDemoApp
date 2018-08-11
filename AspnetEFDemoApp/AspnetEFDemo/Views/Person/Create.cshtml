@@ -1,0 +1,12 @@
+﻿@model AspnetEFDemo.Repository.Person
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+<form action="@Url.Action("SavePerson", "Person")" method="post">
+    Name: @Html.EditorFor(x => x.Name)
+    <input type="submit" />
+</form>

@@ -5,7 +5,30 @@
 
 <h2>Index</h2>
 
-@foreach(var person in Model)
+@foreach (var person in Model)
 {
-    <h4>@person.Name</h4>
+    <h4>
+        <a href="@Url.Action("Update", "Person")?personId=@person.Id">@person.Name</a>
+        <a href="#" data-id="@person.Id" class="delete">[Delete]</a>
+    </h4>
+}
+
+<a href="@Url.Action("Create", "Person")">Create</a>
+
+@section scripts{
+    <script>
+
+        $(document).ready(() => {
+            $(".delete").on("click", (e) => {
+                if (confirm("Are sure to delete?")) {
+                    var deleteUrl = "@Url.Action("Delete", "Person")" + "?personId=" + $(e.currentTarget).data("id");
+                    $.get(deleteUrl, () => {
+                        $(e.currentTarget).parent("h4").remove();
+                        alert("Deleted successfully!");
+                    });
+                }
+            });
+        });
+
+    </script>
 }

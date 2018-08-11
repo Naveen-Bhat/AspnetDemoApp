@@ -157,25 +157,25 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Address.cs">
-      <DependentUpon>Internship.tt</DependentUpon>
+      <DependentUpon>InternshipModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Internship.Context.cs">
+    <Compile Include="Repository\InternshipModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Internship.Context.tt</DependentUpon>
+      <DependentUpon>InternshipModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Internship.cs">
+    <Compile Include="Repository\InternshipModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Internship.tt</DependentUpon>
+      <DependentUpon>InternshipModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Internship.Designer.cs">
+    <Compile Include="Repository\InternshipModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Internship.edmx</DependentUpon>
+      <DependentUpon>InternshipModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Repository\Person.cs">
-      <DependentUpon>Internship.tt</DependentUpon>
+      <DependentUpon>InternshipModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -185,27 +185,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Repository\Internship.Context.tt">
+    <Content Include="Repository\InternshipModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Internship.edmx</DependentUpon>
-      <LastGenOutput>Internship.Context.cs</LastGenOutput>
+      <DependentUpon>InternshipModel.edmx</DependentUpon>
+      <LastGenOutput>InternshipModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Repository\Internship.tt">
+    <Content Include="Repository\InternshipModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Internship.edmx</DependentUpon>
-      <LastGenOutput>Internship.cs</LastGenOutput>
+      <DependentUpon>InternshipModel.edmx</DependentUpon>
+      <LastGenOutput>InternshipModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Repository\Internship.edmx">
+    <EntityDeploy Include="Repository\InternshipModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Internship.Designer.cs</LastGenOutput>
+      <LastGenOutput>InternshipModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Repository\Internship.edmx.diagram">
-      <DependentUpon>Internship.edmx</DependentUpon>
+    <Content Include="Repository\InternshipModel.edmx.diagram">
+      <DependentUpon>InternshipModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -233,6 +233,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Person\Index.cshtml" />
+    <Content Include="Views\Person\Create.cshtml" />
+    <Content Include="Views\Person\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
