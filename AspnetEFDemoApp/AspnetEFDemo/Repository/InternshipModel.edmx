@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AspnetFFDemo.Repository.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AspnetFFDemo.Repository.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
@@ -32,6 +32,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AddOrUpdateAddressOfPerson" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PersonId" Type="int" Mode="In" />
+          <Parameter Name="AddressId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetPersonByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="AspnetFFDemoRepositoryStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
@@ -40,18 +47,32 @@
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AspnetFFDemo.Repository" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="InternshipDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="AspnetFFDemo.Repository.Address" />
+          <EntitySet Name="People" EntityType="AspnetFFDemo.Repository.Person" />
+          <AssociationSet Name="FK_Person_Address" Association="AspnetFFDemo.Repository.FK_Person_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <FunctionImport Name="AddOrUpdateAddressOfPerson">
+            <Parameter Name="PersonId" Mode="In" Type="Int32" />
+            <Parameter Name="AddressId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetPersonByName" ReturnType="Collection(AspnetFFDemo.Repository.GetPersonByName_Result)">
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Address1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="People" Relationship="Self.FK_Person_Address" FromRole="Address" ToRole="Person" />
+          <NavigationProperty Name="People" Relationship="AspnetFFDemo.Repository.FK_Person_Address" FromRole="Address" ToRole="Person" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -60,11 +81,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AddressId" Type="Int32" />
-          <NavigationProperty Name="Address" Relationship="Self.FK_Person_Address" FromRole="Person" ToRole="Address" />
+          <NavigationProperty Name="Address" Relationship="AspnetFFDemo.Repository.FK_Person_Address" FromRole="Person" ToRole="Address" />
         </EntityType>
         <Association Name="FK_Person_Address">
-          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
-          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <End Type="AspnetFFDemo.Repository.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="AspnetFFDemo.Repository.Person" Role="Person" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
               <PropertyRef Name="Id" />
@@ -74,14 +95,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="InternshipDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Addresses" EntityType="Self.Address" />
-          <EntitySet Name="People" EntityType="Self.Person" />
-          <AssociationSet Name="FK_Person_Address" Association="Self.FK_Person_Address">
-            <End Role="Address" EntitySet="Addresses" />
-            <End Role="Person" EntitySet="People" />
-          </AssociationSet>
-        </EntityContainer>
+        <ComplexType Name="GetPersonByName_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Address" Nullable="true" MaxLength="500" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -91,20 +108,29 @@
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="AspnetFFDemo.Repository.Address">
               <MappingFragment StoreEntitySet="Address">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Address1" ColumnName="Address" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="AspnetFFDemo.Repository.Person">
               <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddOrUpdateAddressOfPerson" FunctionName="AspnetFFDemo.Repository.Store.AddOrUpdateAddressOfPerson" />
+          <FunctionImportMapping FunctionImportName="GetPersonByName" FunctionName="AspnetFFDemo.Repository.Store.GetPersonByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AspnetFFDemo.Repository.GetPersonByName_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

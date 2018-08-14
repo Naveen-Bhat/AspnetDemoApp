@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetEFDemo", "AspnetEFDem
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "InternshipDb", "InternshipDb\InternshipDb.sqlproj", "{C6579CC1-AA99-4283-8429-3338B1FBC216}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetEFDemoBusiness", "AspnetEFDemoBusiness\AspnetEFDemoBusiness.csproj", "{6AD40908-B67B-42AF-8EAE-E2D944CDB5E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetDemoRepository", "AspnetDemoRepository\AspnetDemoRepository.csproj", "{58184BFF-9EFD-41E6-AD6D-1BEF21682CC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{C6579CC1-AA99-4283-8429-3338B1FBC216}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6579CC1-AA99-4283-8429-3338B1FBC216}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C6579CC1-AA99-4283-8429-3338B1FBC216}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6AD40908-B67B-42AF-8EAE-E2D944CDB5E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD40908-B67B-42AF-8EAE-E2D944CDB5E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD40908-B67B-42AF-8EAE-E2D944CDB5E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD40908-B67B-42AF-8EAE-E2D944CDB5E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58184BFF-9EFD-41E6-AD6D-1BEF21682CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58184BFF-9EFD-41E6-AD6D-1BEF21682CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58184BFF-9EFD-41E6-AD6D-1BEF21682CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58184BFF-9EFD-41E6-AD6D-1BEF21682CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

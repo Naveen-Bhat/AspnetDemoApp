@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1f37cd8350b54fd19f7d5dac8d087de1" Name="Diagram1">
-        <EntityTypeShape EntityType="AspnetFFDemo.Repository.Address" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="AspnetFFDemo.Repository.Person" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="AspnetFFDemo.Repository.FK_Person_Address" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AspnetFFDemo.Repository.Address" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="AspnetFFDemo.Repository.Person" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="AspnetFFDemo.Repository.FK_Person_Address" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

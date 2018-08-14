@@ -1,6 +1,7 @@
-﻿@model AspnetEFDemo.Repository.Person
+﻿@model AspnetEFDemo.Models.PersonModel
 @{
     ViewBag.Title = "Create";
+    ViewBag.SubmitUrl = Url.Action("SavePerson", "Person");
 }
 
 <h2>Create</h2>
@@ -8,5 +9,8 @@
 
 <form action="@Url.Action("SavePerson", "Person")" method="post">
     Name: @Html.EditorFor(x => x.Name)
+    Address: @Html.EditorFor(x => x.Adddress)
     <input type="submit" />
 </form>
+
+<a href="@Url.Action("Index", "Person")">Cancel</a>

@@ -12,6 +12,8 @@ namespace AspnetEFDemo.Repository
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class InternshipDbEntities : DbContext
     {
@@ -27,5 +29,27 @@ namespace AspnetEFDemo.Repository
     
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Person> People { get; set; }
+    
+        public virtual int AddOrUpdateAddressOfPerson(Nullable<int> personId, Nullable<int> addressId)
+        {
+            var personIdParameter = personId.HasValue ?
+                new ObjectParameter("PersonId", personId) :
+                new ObjectParameter("PersonId", typeof(int));
+    
+            var addressIdParameter = addressId.HasValue ?
+                new ObjectParameter("AddressId", addressId) :
+                new ObjectParameter("AddressId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddOrUpdateAddressOfPerson", personIdParameter, addressIdParameter);
+        }
+    
+        public virtual ObjectResult<GetPersonByName_Result> GetPersonByName(string name)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPersonByName_Result>("GetPersonByName", nameParameter);
+        }
     }
 }

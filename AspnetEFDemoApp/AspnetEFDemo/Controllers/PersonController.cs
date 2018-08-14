@@ -1,4 +1,5 @@
-﻿using AspnetEFDemo.Repository;
+﻿using AspnetEFDemo.Models;
+using AspnetEFDemo.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,10 @@ namespace AspnetEFDemo.Controllers
         // GET: Person
         public ActionResult Index()
         {
-            List<Person> people = null;
+            List<Person> people = new List<Person>();
+
+            var p = people.Where(x => 1==1).Take(10);
+
 
             using (var context = new InternshipDbEntities())
             {
@@ -22,7 +26,7 @@ namespace AspnetEFDemo.Controllers
             return View(people);
         }
 
-        public ActionResult Create(Person person)
+        public ActionResult Create(PersonModel person)
         {
             return View(person);
         }
@@ -40,12 +44,21 @@ namespace AspnetEFDemo.Controllers
         }
 
         [HttpPost]
-        public ActionResult SavePerson(Person person)
+        public ActionResult SavePerson(PersonModel personModel)
         {
             if (ModelState.IsValid)
             {
                 using (var context = new InternshipDbEntities())
                 {
+                    var person = new Person
+                    {
+                        Name = personModel.Name,
+                        Address = new Address()
+                        {
+                            Address1 = personModel.Adddress
+                        }
+                    };
+
                     context.People.Add(person);
                     context.SaveChanges();
                 }
@@ -53,7 +66,7 @@ namespace AspnetEFDemo.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View("CreateOrUpdate", person);
+            return View("Create", personModel);
         }
 
         [HttpPost]
