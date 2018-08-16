@@ -155,32 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\Address.cs">
-      <DependentUpon>InternshipModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\GetPersonByName_Result.cs">
-      <DependentUpon>InternshipModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\InternshipModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InternshipModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\InternshipModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InternshipModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\InternshipModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InternshipModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Repository\Person.cs">
-      <DependentUpon>InternshipModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -189,27 +164,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Repository\InternshipModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InternshipModel.edmx</DependentUpon>
-      <LastGenOutput>InternshipModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Repository\InternshipModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>InternshipModel.edmx</DependentUpon>
-      <LastGenOutput>InternshipModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Repository\InternshipModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InternshipModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Repository\InternshipModel.edmx.diagram">
-      <DependentUpon>InternshipModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -243,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -261,9 +220,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AspnetEFDemoBusiness\AspnetEFDemoBusiness.csproj">
+    <ProjectReference Include="..\AspnetEFDemo.Model\AspnetEFDemo.Model.csproj">
+      <Project>{75dec105-7bc8-4fdb-a3dd-1bd830fa8af9}</Project>
+      <Name>AspnetEFDemo.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AspnetEFDemo.Repository\AspnetEFDemo.Repository.csproj">
+      <Project>{bd7c4b0a-2262-4cdd-81f9-acf2e69403a5}</Project>
+      <Name>AspnetEFDemo.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AspnetEFDemoBusiness\AspnetEFDemo.Business.csproj">
       <Project>{6ad40908-b67b-42af-8eae-e2d944cdb5e2}</Project>
-      <Name>AspnetEFDemoBusiness</Name>
+      <Name>AspnetEFDemo.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

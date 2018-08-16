@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AspnetEFDemo.Model\AspnetEFDemo.Model.csproj" />
+    <ProjectReference Include="..\AspnetEFDemo.Repository\AspnetEFDemo.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

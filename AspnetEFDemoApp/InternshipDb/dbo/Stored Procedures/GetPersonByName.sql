@@ -3,7 +3,7 @@
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE GetPersonByName
+CREATE PROCEDURE [dbo].[GetPersonByName]
 	@name VARCHAR(50)
 AS
 BEGIN
@@ -11,7 +11,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    SELECT Name, Address FROM Person
+    SELECT Person.Id, Name, Address FROM Person
 		LEFT OUTER JOIN Address ON Person.AddressId = Address.Id
 	WHERE Name=@name
 

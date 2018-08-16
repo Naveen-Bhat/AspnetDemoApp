@@ -1,4 +1,5 @@
-﻿using AspnetEFDemo.Models;
+﻿using AspnetEFDemo.Business;
+using AspnetEFDemo.Models;
 using AspnetEFDemo.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,19 +11,12 @@ namespace AspnetEFDemo.Controllers
 {
     public class PersonController : Controller
     {
+        private readonly PersonBusiness personBusiness = new PersonBusiness();
+
         // GET: Person
         public ActionResult Index()
         {
-            List<Person> people = new List<Person>();
-
-            var p = people.Where(x => 1==1).Take(10);
-
-
-            using (var context = new InternshipDbEntities())
-            {
-                people = context.People.ToList();
-            }
-
+            var people = personBusiness.GetPeople();
             return View(people);
         }
 
@@ -33,13 +27,7 @@ namespace AspnetEFDemo.Controllers
 
         public ActionResult Update(int personId)
         {
-            Person person = null;
-
-            using (var context = new InternshipDbEntities())
-            {
-                person = context.People.Where(x => x.Id == personId).SingleOrDefault();
-            }
-
+            Person person = this.personBusiness.GetPersonById(personId);
             return View(person);
         }
 
@@ -48,21 +36,7 @@ namespace AspnetEFDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var context = new InternshipDbEntities())
-                {
-                    var person = new Person
-                    {
-                        Name = personModel.Name,
-                        Address = new Address()
-                        {
-                            Address1 = personModel.Adddress
-                        }
-                    };
-
-                    context.People.Add(person);
-                    context.SaveChanges();
-                }
-
+                this.personBusiness.AddPerson(personModel);
                 return RedirectToAction("Index");
             }
 
@@ -74,17 +48,7 @@ namespace AspnetEFDemo.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var context = new InternshipDbEntities())
-                {
-                    var personObj = context.People.Where(x => x.Id == person.Id).SingleOrDefault();
-
-                    if (personObj != null)
-                    {
-                        personObj.Name = person.Name;
-                        context.SaveChanges();
-                    }
-                }
-
+                this.personBusiness.UpdatePerson(person);
                 return RedirectToAction("Index");
             }
 
@@ -93,16 +57,7 @@ namespace AspnetEFDemo.Controllers
 
         public JsonResult Delete(int personId)
         {
-            using (var context = new InternshipDbEntities())
-            {
-                var person = context.People.Where(x => x.Id == personId).SingleOrDefault();
-                if (person != null)
-                {
-                    context.People.Remove(person);
-                    context.SaveChanges();
-                }
-            }
-
+            this.personBusiness.DeletePerson(personId);
             return Json(new { }, JsonRequestBehavior.AllowGet);
         }
     }
