@@ -1,96 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CSharpDemoApp
 {
-    public class MyList<T>
-    {
-        private T[] data;
-        private int iterator = 0;
-
-        public MyList()
-        {
-            this.data = new T[10];
-        }
-
-        public MyList(int size)
-        {
-            this.data = new T[size];
-        }
-
-        public void Add(T d)
-        {
-            this.data[iterator] = d;
-            iterator++;
-        }
-
-        public T[] Where(Func<T, bool> filter)
-        {
-            T[] output = new T[this.data.Length];
-            int oIterator = 0;
-
-            for (var i = 0; i < this.data.Length; i++)
-            {
-                if (filter(this.data[i]))
-                {
-                    output[oIterator] = this.data[i];
-                    oIterator++;
-                }
-            }
-
-            return output;
-        }
-
-        public T[] GetAll()
-        {
-            T[] output = new T[this.data.Length];
-            for (var i = 0; i < this.data.Length; i++)
-            {
-                output[i] = this.data[i];
-            }
-
-            return output;
-        }
-    }
-
     public class Program
     {
         static void Main(string[] args)
         {
-            var list = new MyList<int>();
+            Console.WriteLine("Start");
 
-            list.Add(1);
-            list.Add(11);
-            list.Add(10);
-            list.Add(91);
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
 
-            Console.WriteLine("All");
-            var data = list.GetAll();
-            Print(data);
+            var task = Task.Factory.StartNew(async () => Console.WriteLine(await GetData()));
 
-            Console.WriteLine("Even");
-            var evenNumbers = list.Where(x => x % 2 == 0);
-            Print(evenNumbers);
+            // This wait, doesn't have a useful effect here.
+            task.Wait(); 
+            // but this does: var t = GetData(); t.Wait(); Now we are synchronously waiting for the internal async call.
 
-            Console.WriteLine("Odd");
-            var odd = list.Where(x => x % 2 != 0);
-            Print(odd);
+            stopWatch.Stop();
+            Console.WriteLine(stopWatch.Elapsed);
 
+            Console.WriteLine("Done!");
             Console.ReadKey();
         }
 
-        static void Print<T>(T[] data)
+        //public static int GetData()
+        //{
+        //    Console.WriteLine("Thread: " + Thread.CurrentThread.ManagedThreadId);
+        //    Thread.Sleep(1000 * 3);
+        //    Console.WriteLine("Thread: " + Thread.CurrentThread.ManagedThreadId);
+        //    return 100;
+        //}
+
+        public static async Task<int> GetData()
         {
-            foreach (var d in data)
-            {
-                if (d.ToString() != "0")
-                {
-                    Console.WriteLine(d);
-                }
-            }
+            Console.WriteLine("Thread: " + Thread.CurrentThread.ManagedThreadId);
+            await Task.Delay(1000 * 3);
+            Console.WriteLine("Thread: " + Thread.CurrentThread.ManagedThreadId);
+            return 100;
         }
     }
 }
